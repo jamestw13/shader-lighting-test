@@ -30,6 +30,15 @@ void main()
         20.0                   // Specular intensity
         );
     
+    light += pointLight(
+        vec3(1.0, 0.1, 0.1),   // light color
+        1.0,                   // light intensity
+        vNormal,               // Normal
+        vec3(0.0, 2.5, 0.0),   // Light position
+        viewDirection,         // Fragment position
+        20.0                   // Specular intensity
+        );
+    
     color *= light;
 
     // Final color

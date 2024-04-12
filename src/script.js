@@ -121,6 +121,13 @@ directionalLightHelper.position.set(0, 0, 3);
 
 scene.add(directionalLightHelper);
 
+const pointLightHelper = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 2), new THREE.MeshBasicMaterial());
+pointLightHelper.material.color.setRGB(1, 0.1, 0.1);
+pointLightHelper.material.side = THREE.DoubleSide;
+pointLightHelper.position.set(0, 2.5, 0);
+
+scene.add(pointLightHelper);
+
 /**
  * Animate
  */
