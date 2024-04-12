@@ -75,10 +75,10 @@ renderer.setPixelRatio(sizes.pixelRatio);
  */
 const materialParameters = {
   materialColor: '#ffffff',
-  ambientLightColor: '#0D0D0D',
-  directionalLightColor: '#ffffff',
-  pointLight1Color: '#ff0000',
-  pointLight2Color: '#0066ff',
+  ambientLightColor: '#CBCBCB',
+  directionalLightColor: '#1A80ff',
+  pointLight1Color: '#ff1A1A',
+  pointLight2Color: '#00FF80',
 };
 
 const material = new THREE.ShaderMaterial({
@@ -105,11 +105,13 @@ ambientLightFolder.addColor(materialParameters, 'ambientLightColor').onChange(()
 const directionalLightFolder = gui.addFolder('Directional Light');
 directionalLightFolder.addColor(materialParameters, 'directionalLightColor').onChange(() => {
   material.uniforms.uDirectionalLightColor.value.set(materialParameters.directionalLightColor);
+  directionalLightHelper.material.color.set(materialParameters.directionalLightColor);
 });
 
 const pointLight1Folder = gui.addFolder('Point Light 1');
 pointLight1Folder.addColor(materialParameters, 'pointLight1Color').onChange(() => {
   material.uniforms.uPointLight1Color.value.set(materialParameters.pointLight1Color);
+  pointLight1Helper.material.color.set(materialParameters.pointLight1Color);
 });
 
 const pointLight2Folder = gui.addFolder('Point Light 2');
@@ -144,23 +146,23 @@ gltfLoader.load('./suzanne.glb', gltf => {
  * Light helpers
  */
 const directionalLightHelper = new THREE.Mesh(new THREE.PlaneGeometry(), new THREE.MeshBasicMaterial());
-directionalLightHelper.material.color.setRGB(0.1, 0.1, 1);
+directionalLightHelper.material.color.set(materialParameters.directionalLightColor);
 directionalLightHelper.material.side = THREE.DoubleSide;
 directionalLightHelper.position.set(0, 0, 3);
 
 scene.add(directionalLightHelper);
 
-const pointLightHelper1 = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 2), new THREE.MeshBasicMaterial());
-pointLightHelper1.material.color.setRGB(1, 0.1, 0.1);
-pointLightHelper1.position.set(0, 2.5, 0);
+const pointLight1Helper = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 2), new THREE.MeshBasicMaterial());
+pointLight1Helper.material.color.set(materialParameters.pointLight1Color);
+pointLight1Helper.position.set(0, 2.5, 0);
 
-scene.add(pointLightHelper1);
+scene.add(pointLight1Helper);
 
-const pointLightHelper2 = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 2), new THREE.MeshBasicMaterial());
-pointLightHelper2.material.color.setRGB(0.1, 1, 0.5);
-pointLightHelper2.position.set(2, 2, 2);
+const pointLight2Helper = new THREE.Mesh(new THREE.IcosahedronGeometry(0.1, 2), new THREE.MeshBasicMaterial());
+pointLight2Helper.material.color.set(materialParameters.pointLight2Color);
+pointLight2Helper.position.set(2, 2, 2);
 
-scene.add(pointLightHelper2);
+scene.add(pointLight2Helper);
 
 /**
  * Animate
