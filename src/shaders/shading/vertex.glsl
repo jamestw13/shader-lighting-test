@@ -1,5 +1,5 @@
 varying vec3 vNormal;
-varying vec4 vModelNormal;
+varying vec3 vPosition;
 void main()
 {
     // Position
@@ -11,5 +11,6 @@ void main()
 
     // Varyings
     vNormal = modelNormal.xyz;
+    vPosition = modelPosition.xyz;
     
 }
