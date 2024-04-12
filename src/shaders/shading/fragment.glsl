@@ -10,7 +10,7 @@ varying vec3 vPosition;
 void main()
 {
     
-    vec3 vNormal = normalize(vNormal);
+    vec3 normal = normalize(vNormal);
     vec3 viewDirection = normalize(vPosition - cameraPosition);
     vec3 color = uColor;
 
@@ -25,7 +25,7 @@ void main()
     light += directionalLight(
         vec3(0.1, 0.1, 1.0),   // light color
         1.0,                   // light intensity
-        vNormal,               // Normal
+        normal,               // Normal
         vec3(0.0, 0.0, 3.0),   // Light position
         viewDirection,         // Fragment position
         20.0                   // Specular intensity
@@ -34,8 +34,19 @@ void main()
     light += pointLight(
         vec3(1.0, 0.1, 0.1),   // light color
         1.0,                   // light intensity
-        vNormal,               // Normal
+        normal,               // Normal
         vec3(0.0, 2.5, 0.0),   // Light position
+        viewDirection,         // Fragment position
+        20.0,                  // Specular intensity
+        vPosition,
+        0.25
+        );
+    
+    light += pointLight(
+        vec3(0.1, 1.0, 0.5),   // light color
+        1.0,                   // light intensity
+        normal,               // Normal
+        vec3(2.0, 2.0, 2.0),   // Light position
         viewDirection,         // Fragment position
         20.0,                  // Specular intensity
         vPosition,
