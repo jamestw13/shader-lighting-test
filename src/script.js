@@ -73,19 +73,48 @@ renderer.setPixelRatio(sizes.pixelRatio);
 /**
  * Material
  */
-const materialParameters = {};
-materialParameters.color = '#ffffff';
+const materialParameters = {
+  materialColor: '#ffffff',
+  ambientLightColor: '#0D0D0D',
+  directionalLightColor: '#ffffff',
+  pointLight1Color: '#ff0000',
+  pointLight2Color: '#0066ff',
+};
 
 const material = new THREE.ShaderMaterial({
   vertexShader: shadingVertexShader,
   fragmentShader: shadingFragmentShader,
   uniforms: {
-    uColor: new THREE.Uniform(new THREE.Color(materialParameters.color)),
+    uColor: new THREE.Uniform(new THREE.Color(materialParameters.materialColor)),
+    uAmbientLightColor: new THREE.Uniform(new THREE.Color(materialParameters.ambientLightColor)),
+    uDirectionalLightColor: new THREE.Uniform(new THREE.Color(materialParameters.directionalLightColor)),
+    uPointLight1Color: new THREE.Uniform(new THREE.Color(materialParameters.pointLight1Color)),
+    uPointLight2Color: new THREE.Uniform(new THREE.Color(materialParameters.pointLight2Color)),
   },
 });
 
-gui.addColor(materialParameters, 'color').onChange(() => {
-  material.uniforms.uColor.value.set(materialParameters.color);
+gui.addColor(materialParameters, 'materialColor').onChange(() => {
+  material.uniforms.uColor.value.set(materialParameters.materialColor);
+});
+
+const ambientLightFolder = gui.addFolder('Ambient Light');
+ambientLightFolder.addColor(materialParameters, 'ambientLightColor').onChange(() => {
+  material.uniforms.uAmbientLightColor.value.set(materialParameters.ambientLightColor);
+});
+
+const directionalLightFolder = gui.addFolder('Directional Light');
+directionalLightFolder.addColor(materialParameters, 'directionalLightColor').onChange(() => {
+  material.uniforms.uDirectionalLightColor.value.set(materialParameters.directionalLightColor);
+});
+
+const pointLight1Folder = gui.addFolder('Point Light 1');
+pointLight1Folder.addColor(materialParameters, 'pointLight1Color').onChange(() => {
+  material.uniforms.uPointLight1Color.value.set(materialParameters.pointLight1Color);
+});
+
+const pointLight2Folder = gui.addFolder('Point Light 2');
+pointLight2Folder.addColor(materialParameters, 'pointLight2Color').onChange(() => {
+  material.uniforms.uPointLight2Color.value.set(materialParameters.pointLight2Color);
 });
 
 /**

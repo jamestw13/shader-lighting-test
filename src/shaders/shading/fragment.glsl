@@ -1,4 +1,9 @@
 uniform vec3 uColor;
+uniform vec3 uAmbientLightColor;
+uniform vec3 uDirectionalLightColor;
+uniform vec3 uPointLight1Color;
+uniform vec3 uPointLight2Color;
+
 
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -18,12 +23,12 @@ void main()
     vec3 light = vec3(0.0);
     
     light += ambientLight(
-        vec3(1.0),          // light color
+        uAmbientLightColor,          // light color
         0.03                // light intensity
         );
     
     light += directionalLight(
-        vec3(0.1, 0.1, 1.0),   // light color
+        uDirectionalLightColor,   // light color
         1.0,                   // light intensity
         normal,               // Normal
         vec3(0.0, 0.0, 3.0),   // Light position
@@ -32,7 +37,7 @@ void main()
         );
     
     light += pointLight(
-        vec3(1.0, 0.1, 0.1),   // light color
+        uPointLight1Color,   // light color
         1.0,                   // light intensity
         normal,               // Normal
         vec3(0.0, 2.5, 0.0),   // Light position
@@ -43,7 +48,7 @@ void main()
         );
     
     light += pointLight(
-        vec3(0.1, 1.0, 0.5),   // light color
+        uPointLight2Color,   // light color
         1.0,                   // light intensity
         normal,               // Normal
         vec3(2.0, 2.0, 2.0),   // Light position
