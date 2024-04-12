@@ -10,6 +10,7 @@ import shadingFragmentShader from './shaders/shading/fragment.glsl';
  */
 // Debug
 const gui = new GUI();
+gui.close();
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
