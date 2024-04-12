@@ -9,6 +9,7 @@ varying vec3 vPosition;
 
 void main()
 {
+    
     vec3 vNormal = normalize(vNormal);
     vec3 viewDirection = normalize(vPosition - cameraPosition);
     vec3 color = uColor;
@@ -36,7 +37,9 @@ void main()
         vNormal,               // Normal
         vec3(0.0, 2.5, 0.0),   // Light position
         viewDirection,         // Fragment position
-        20.0                   // Specular intensity
+        20.0,                  // Specular intensity
+        vPosition,
+        0.25
         );
     
     color *= light;
