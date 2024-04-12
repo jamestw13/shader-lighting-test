@@ -5,6 +5,7 @@ varying vec3 vPosition;
 
 #include ../includes/ambientLight.glsl;
 #include ../includes/directionalLight.glsl;
+#include ../includes/pointLight.glsl;
 
 void main()
 {
