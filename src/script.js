@@ -76,9 +76,13 @@ renderer.setPixelRatio(sizes.pixelRatio);
 const materialParameters = {
   materialColor: '#ffffff',
   ambientLightColor: '#CBCBCB',
+  ambientLightIntensity: 0.03,
   directionalLightColor: '#1A80ff',
+  directionalLightIntensity: 1,
   pointLight1Color: '#ff1A1A',
+  pointLight1Intensity: 1,
   pointLight2Color: '#00FF80',
+  pointLight2Intensity: 1,
 };
 
 const material = new THREE.ShaderMaterial({
@@ -87,9 +91,14 @@ const material = new THREE.ShaderMaterial({
   uniforms: {
     uColor: new THREE.Uniform(new THREE.Color(materialParameters.materialColor)),
     uAmbientLightColor: new THREE.Uniform(new THREE.Color(materialParameters.ambientLightColor)),
+
     uDirectionalLightColor: new THREE.Uniform(new THREE.Color(materialParameters.directionalLightColor)),
     uPointLight1Color: new THREE.Uniform(new THREE.Color(materialParameters.pointLight1Color)),
     uPointLight2Color: new THREE.Uniform(new THREE.Color(materialParameters.pointLight2Color)),
+    uAmbientLightIntensity: new THREE.Uniform(materialParameters.ambientLightIntensity),
+    uDirectionalLightIntensity: new THREE.Uniform(materialParameters.directionalLightIntensity),
+    uPointLight1Intensity: new THREE.Uniform(materialParameters.pointLight1Intensity),
+    uPointLight2Intensity: new THREE.Uniform(materialParameters.pointLight2Intensity),
   },
 });
 
@@ -101,11 +110,17 @@ const ambientLightFolder = gui.addFolder('Ambient Light');
 ambientLightFolder.addColor(materialParameters, 'ambientLightColor').onChange(() => {
   material.uniforms.uAmbientLightColor.value.set(materialParameters.ambientLightColor);
 });
+ambientLightFolder.add(materialParameters, 'ambientLightIntensity', 0, 1, 0.01).onChange(() => {
+  material.uniforms.uAmbientLightIntensity.value = materialParameters.ambientLightIntensity;
+});
 
 const directionalLightFolder = gui.addFolder('Directional Light');
 directionalLightFolder.addColor(materialParameters, 'directionalLightColor').onChange(() => {
   material.uniforms.uDirectionalLightColor.value.set(materialParameters.directionalLightColor);
   directionalLightHelper.material.color.set(materialParameters.directionalLightColor);
+});
+directionalLightFolder.add(materialParameters, 'directionalLightIntensity', 0, 5, 0.01).onChange(() => {
+  material.uniforms.uDirectionalLightIntensity.value = materialParameters.directionalLightIntensity;
 });
 
 const pointLight1Folder = gui.addFolder('Point Light 1');
@@ -113,10 +128,16 @@ pointLight1Folder.addColor(materialParameters, 'pointLight1Color').onChange(() =
   material.uniforms.uPointLight1Color.value.set(materialParameters.pointLight1Color);
   pointLight1Helper.material.color.set(materialParameters.pointLight1Color);
 });
+pointLight1Folder.add(materialParameters, 'pointLight1Intensity', 0, 5, 0.01).onChange(() => {
+  material.uniforms.uPointLight1Intensity.value = materialParameters.pointLight1Intensity;
+});
 
 const pointLight2Folder = gui.addFolder('Point Light 2');
 pointLight2Folder.addColor(materialParameters, 'pointLight2Color').onChange(() => {
   material.uniforms.uPointLight2Color.value.set(materialParameters.pointLight2Color);
+});
+pointLight2Folder.add(materialParameters, 'pointLight2Intensity', 0, 5, 0.01).onChange(() => {
+  material.uniforms.uPointLight2Intensity.value = materialParameters.pointLight2Intensity;
 });
 
 /**

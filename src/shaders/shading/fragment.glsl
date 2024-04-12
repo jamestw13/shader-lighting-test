@@ -3,7 +3,10 @@ uniform vec3 uAmbientLightColor;
 uniform vec3 uDirectionalLightColor;
 uniform vec3 uPointLight1Color;
 uniform vec3 uPointLight2Color;
-
+uniform float uAmbientLightIntensity;
+uniform float uDirectionalLightIntensity;
+uniform float uPointLight1Intensity;
+uniform float uPointLight2Intensity;
 
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -24,12 +27,12 @@ void main()
     
     light += ambientLight(
         uAmbientLightColor,          // light color
-        0.03                // light intensity
+        uAmbientLightIntensity               // light intensity
         );
     
     light += directionalLight(
         uDirectionalLightColor,   // light color
-        1.0,                   // light intensity
+        uDirectionalLightIntensity,                   // light intensity
         normal,               // Normal
         vec3(0.0, 0.0, 3.0),   // Light position
         viewDirection,         // Fragment position
@@ -38,7 +41,7 @@ void main()
     
     light += pointLight(
         uPointLight1Color,   // light color
-        1.0,                   // light intensity
+        uPointLight1Intensity,                   // light intensity
         normal,               // Normal
         vec3(0.0, 2.5, 0.0),   // Light position
         viewDirection,         // Fragment position
@@ -49,7 +52,7 @@ void main()
     
     light += pointLight(
         uPointLight2Color,   // light color
-        1.0,                   // light intensity
+        uPointLight2Intensity,                   // light intensity
         normal,               // Normal
         vec3(2.0, 2.0, 2.0),   // Light position
         viewDirection,         // Fragment position
